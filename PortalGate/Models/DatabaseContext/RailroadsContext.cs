@@ -8,7 +8,7 @@ namespace PortalGate.Models.DatabaseContext
 {
     public class RailroadsContext : DbContext
     {
-        public DbSet<Railroad> Railroads { get; set; }
+        public DbSet<Railroad> RailroadList { get; set; }
 
         public RailroadsContext(DbContextOptions<RailroadsContext> options) : base(options)
         { }
