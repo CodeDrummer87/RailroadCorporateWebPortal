@@ -22,6 +22,16 @@ namespace TCH2_WestSiberianRailway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin", builder =>
+            //    {
+            //        builder.WithOrigins("https://localhost:44333")
+            //        .AllowAnyHeader()
+            //        .WithMethods("GET");
+            //    });
+            //});
+
             services.AddControllersWithViews();
         }
 
@@ -40,6 +50,8 @@ namespace TCH2_WestSiberianRailway
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //app.UseCors("AllowSpecificOrigin");
 
             app.UseAuthorization();
 

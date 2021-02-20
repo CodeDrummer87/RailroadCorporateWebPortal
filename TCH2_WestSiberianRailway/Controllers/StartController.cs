@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace TCH2_WestSiberianRailway.Controllers
 {
     public class StartController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
