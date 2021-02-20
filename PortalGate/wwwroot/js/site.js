@@ -84,6 +84,30 @@ $(document).ready(function () {
 		GetUnitList();
 	});
 
+	$('#goOver').click(function () {
+
+		clickSound.play();
+		let railroadId = $(selectedRailroad).attr('id');
+		let industryId = $(selectedIndustry).attr('id');
+		let unitId = $(selectedUnit).attr('id');
+
+		$.ajax({
+			url: 'https://localhost:44333/transit/transitToUnit?railroadId='+railroadId+"&industryId="+industryId+"&unitId="+unitId,
+			method: 'GET',
+			success: function (address) {
+				if (address !== '') {
+					window.location.href = address;
+				}
+				else {
+					DisplayCurrentMessage("Сайт временно недоступен", false);
+				}
+			},
+			error: function () {
+
+			}
+		});
+	});
+
 });
 
 function GetRailroadList() {
@@ -188,4 +212,19 @@ function GetUnitsAndDisplay(railroadId, industryId) {
 
 		}
 	});
+}
+
+function DisplayCurrentMessage(message, success) {
+	if (success) {
+		$('#currentMessage').css('color', 'green').text(message);
+	}
+	else {
+		$('#currentMessage').css('color', 'red').text(message);
+	}
+
+	setTimeout(ClearCurrentMessage, 2500);
+}
+
+function ClearCurrentMessage() {
+	$('#currentMessage').text('');
 }
