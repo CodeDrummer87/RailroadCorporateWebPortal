@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TCH2_WestSiberianRailway.Models.DatabaseContext;
 
 namespace TCH2_WestSiberianRailway
 {
@@ -22,6 +24,9 @@ namespace TCH2_WestSiberianRailway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<TCH2_WSRailwayContext>(o => o.UseSqlServer(connection));
+
             //services.AddCors(options =>
             //{
             //    options.AddPolicy("AllowSpecificOrigin", builder =>

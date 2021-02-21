@@ -7,12 +7,7 @@ namespace RailwayPortalClassLibrary
     public class Position
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public List<User> Users { get; set; }
-
-        public Position()
-        {
-            Users = new List<User>();
-        }
+        public string FullName { get; set; }
+        public string Abbreviation { get; set; }
     }
 }
