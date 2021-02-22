@@ -1,19 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RailwayPortalClassLibrary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace TCH2_WestSiberianRailway.Models.DatabaseContext
+namespace InternalAPI
 {
-    public class TCH2_WSRailwayContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<Role> Roles { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public TCH2_WSRailwayContext(DbContextOptions<TCH2_WSRailwayContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

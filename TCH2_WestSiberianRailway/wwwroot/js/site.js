@@ -4,12 +4,46 @@
 
     $(document).on('keypress', function (e) {
         if (e.which == 13) {
-            // Temporary code
-            DisplayCurrentMessage('Клавиша Enter была нажата', true);
+            SignIn();
         }
     });
 
+    $('#signInButton').click(function () {
+        SignIn();
+    });
+
 });
+
+function SignIn() {
+    let loginModel = {
+        email: $('#inpEmail').val(),
+        password: $('#inpPassword').val()
+    };
+
+    if (loginModel.email === '') {
+        DisplayCurrentMessage('Email не указан', false);
+    }
+    else if (loginModel.password === '') {
+        DisplayCurrentMessage('Введите пароль', false);
+    }
+    else {
+        $.ajax({
+            url: 'https://localhost:44323/account/signin',
+            method: 'POST',
+            contentType: 'application/JSON',
+            data: JSON.stringify(loginModel),
+            success: function (response) {
+                ClearForm();
+                $('#inpSignIn').focus();
+                DisplayCurrentMessage(response, true);
+            },
+            error: function () {
+                DisplayCurrentMessage('Ошибка выполнения запроса', false);
+            },
+            caches: false
+        });
+	}
+}
 
 function DisplayCurrentMessage(message, success) {
     if (success) {
@@ -24,4 +58,9 @@ function DisplayCurrentMessage(message, success) {
 
 function ClearCurrentMessage() {
     $('#currentMessage').text('');
+}
+
+function ClearForm() {
+    $('#inpEmail').val('');
+    $('#inpPassword').val('');
 }

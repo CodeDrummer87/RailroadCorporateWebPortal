@@ -10,7 +10,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCH2_WestSiberianRailway", 
 		{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13} = {05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RailwayPortalClassLibrary", "RailwayPortalClassLibrary\RailwayPortalClassLibrary.csproj", "{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RailwayPortalClassLibrary", "RailwayPortalClassLibrary\RailwayPortalClassLibrary.csproj", "{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalAPI", "InternalAPI\InternalAPI.csproj", "{29038BB3-73A5-40D2-A317-D2B3A9F55175}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13} = {05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +35,10 @@ Global
 		{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05F3ACC2-680D-42EA-8A8A-1CB72F93AA13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29038BB3-73A5-40D2-A317-D2B3A9F55175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29038BB3-73A5-40D2-A317-D2B3A9F55175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29038BB3-73A5-40D2-A317-D2B3A9F55175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29038BB3-73A5-40D2-A317-D2B3A9F55175}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
