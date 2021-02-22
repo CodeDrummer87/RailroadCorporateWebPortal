@@ -7,7 +7,7 @@ IF OBJECT_ID('Roles', 'u') IS NULL
 CREATE TABLE Roles
 (
 	Id INT IDENTITY(1, 1) PRIMARY KEY,
-	Name NVARCHAR(50)
+	Name NCHAR(50)
 )
 
 GO
