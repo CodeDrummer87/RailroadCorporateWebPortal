@@ -10,7 +10,7 @@ namespace PortalGate.Controllers
 {
     public class DataController : Controller
     {
-        private RailroadsContext db;
+        private readonly RailroadsContext db;
 
         public DataController(RailroadsContext context)
         {

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "eQa8ZAKJ8wzwJCzylWHHkwQ/9dqH+Qk1za47E02p5UkiCR6/c0nkjapqE14T5FVblgkurJ9uKqrUJ/Es8K3/rw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Vadik\\Desktop\\RailroadCorporateWebPortal\\RailwayPortalClassLibrary\\RailwayPortalClassLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Vadik\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

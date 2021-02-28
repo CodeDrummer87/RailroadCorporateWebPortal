@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OERAllOup2jJs0gDBfUQakLDyIORP/sHUtqnss7RDchLOerCaRcpOYIveRRqGfkp8NIFyfGA5XkZRp6IfU1onA==",
+  "dgSpecHash": "5BGeUTLpJfn5/ARij2SHdnG3vZDBfifd0FIEAjP2JKrxcbEjqFdcVBs22YpEbnA2wpTnp+83fsNCPx0yHL2d7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Vadik\\Desktop\\RailroadCorporateWebPortal\\TCH2_WestSiberianRailway\\TCH2_WestSiberianRailway.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Vadik\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
