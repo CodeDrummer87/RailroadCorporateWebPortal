@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PortalGate.Models.DatabaseContext;
 
 namespace PortalGate
 {
@@ -15,6 +17,9 @@ namespace PortalGate
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<RailroadsContext>(options => options.UseSqlServer(connection));
+
             services.AddControllersWithViews();
         }
 

@@ -30,17 +30,22 @@ function SignIn() {
         $.ajax({
             url: 'https://localhost:44323/account/signin',
             method: 'POST',
-            contentType: 'application/JSON',
+            contentType: 'application/json',
             data: JSON.stringify(loginModel),
             success: function (response) {
                 ClearForm();
                 $('#inpSignIn').focus();
-                DisplayCurrentMessage(response, true);
+                if (response != null) {
+                    window.location.href = response;
+                }
+                else {
+                    DisplayCurrentMessage("Вы не зарегистрированы в системе", false);
+				}
             },
             error: function () {
                 DisplayCurrentMessage('Ошибка выполнения запроса', false);
-            },
-            caches: false
+            }
+            //caches: false
         });
 	}
 }

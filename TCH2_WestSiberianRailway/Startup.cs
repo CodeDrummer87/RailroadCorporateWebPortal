@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using TCH2_WestSiberianRailway.Modules.Implementation;
+using TCH2_WestSiberianRailway.Modules.Interfaces;
 
 namespace TCH2_WestSiberianRailway
 {
@@ -25,7 +30,16 @@ namespace TCH2_WestSiberianRailway
                 });
             });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Start/Index");
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+                });
+
             services.AddControllersWithViews();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ITCH2_WSR_WebClient, TCH2_WSR_WebClient>();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -37,6 +51,7 @@ namespace TCH2_WestSiberianRailway
 
             app.UseCors("AllowSpecificOrigin");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
