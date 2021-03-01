@@ -1,0 +1,36 @@
+﻿.main {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-areas:
+        "mH mH"
+        "mN mA"
+        "mN mM";
+
+    grid-template-columns: 20% 1fr;
+    grid-template-rows: 7% 1fr  5%;
+
+    height: 100%;
+    grid-gap: 4px;
+}
+
+#mainHeader {
+    grid-area: mH;
+}
+
+#mainNav {
+    grid-area: mN;
+}
+
+#mainArticle {
+    grid-area: mA;
+}
+
+#mainMessages {
+    grid-area: mM;
+}
+
+.pageBlock {
+    border: 1px solid #00ff21;
+    border-radius: 5px;
+}
