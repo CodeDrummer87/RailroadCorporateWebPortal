@@ -1,4 +1,5 @@
 ﻿using RailwayPortalClassLibrary;
+using System.Collections;
 using System.Net.Http;
 
 namespace TCH2_WestSiberianRailway.Modules.Interfaces
@@ -7,5 +8,6 @@ namespace TCH2_WestSiberianRailway.Modules.Interfaces
     {
         User Send<T>(HttpMethod method, string path, params object[] args);
         SessionModel Get<T>(string path);
+        string Send(string path);
     }
 }

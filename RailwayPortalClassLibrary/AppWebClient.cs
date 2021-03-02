@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Net.Http;
 using System.Text;
 
@@ -53,6 +54,23 @@ namespace RailwayPortalClassLibrary
             }
 
             return model;
+        }
+
+        public string Send(string path)
+        {
+            var requestResult = client.SendAsync(new HttpRequestMessage()
+            {
+                RequestUri = new Uri(URL + '/' + path),
+                Method = HttpMethod.Get
+            }).Result;
+           return requestResult.Content.ReadAsStringAsync().Result;
+            //string model = JsonConvert.DeserializeObject<string>(content);
+            //if (model == null)
+            //{
+            //    model = default(string);
+            //}
+
+            //return model;
         }
     }
 }
