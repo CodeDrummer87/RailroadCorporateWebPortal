@@ -64,13 +64,19 @@ namespace RailwayPortalClassLibrary
                 Method = HttpMethod.Get
             }).Result;
            return requestResult.Content.ReadAsStringAsync().Result;
-            //string model = JsonConvert.DeserializeObject<string>(content);
-            //if (model == null)
-            //{
-            //    model = default(string);
-            //}
+        }
 
-            //return model;
+        public string Send<T>(string path, T arg)
+        {
+            var jsonvalues = JsonConvert.SerializeObject(arg);
+            var requestResult = client.SendAsync(new HttpRequestMessage()
+            {
+                RequestUri = new Uri(URL + '/' + path),
+                Method = HttpMethod.Post,
+                Content = new StringContent(jsonvalues, Encoding.UTF8, "application/json")
+            }).Result;
+
+            return requestResult.Content.ReadAsStringAsync().Result;
         }
     }
 }

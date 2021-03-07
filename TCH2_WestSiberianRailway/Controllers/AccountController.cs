@@ -1,61 +1,85 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RailwayPortalClassLibrary;
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using TCH2_WestSiberianRailway.Modules.Interfaces;
+using TCH2_WestSiberianRailway.Models;
 
 namespace TCH2_WestSiberianRailway.Controllers
 {
     public class AccountController : Controller
     {
+        private ApplicationContext db;
         private readonly IHttpContextAccessor contextAccessor;
-        private ITCH2_WSR_WebClient client;
 
-        public AccountController(IHttpContextAccessor httpContext, ITCH2_WSR_WebClient webClient)
+        public AccountController(ApplicationContext context, IHttpContextAccessor httpContext)
         {
+            db = context;
             contextAccessor = httpContext;
-            client = webClient;
         }
 
         [HttpPost]
         public async Task<string> SignIn([FromBody] SignInModel model)
         {
-            var user = client.Send<SignInModel>(HttpMethod.Post, "api/account/signIn", model);
+            User user = db.Users.FirstOrDefault(u => u.Email == model.Email);
 
-            if (user != null)
+            if (user != null && user.Password == GetHashImage(model.Password, user.Salt))
             {
-                await Authenticate(user.Id, user.Email);
+                await Authenticate(user.Email);
+                await RegisterSession(user.Id);
+
                 return "/Content/Admin";
             }
 
             return null;
         }
 
-        private async Task Authenticate(int userId, string userName)
+        private string GetHashImage(string pswrd, byte[] salt)
+        {
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: pswrd,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+
+            return hashed;
+        }
+
+        private async Task Authenticate(string userName)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
             };
 
-            RegisterSession(userId);
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
             await contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
         private async Task RegisterSession(int userId)
         {
-            await Task.Run(() => 
+            DateTime currentDateTime = DateTime.Now;
+
+            SessionModel session = new SessionModel
             {
-                var request = client.Get<int>($"api/account/session?userId={userId}");
-                contextAccessor.HttpContext.Response.Cookies.Append("SessionId", request.SessionId);
-            });
-            
+                SessionId = Guid.NewGuid().ToString(),
+                UserId = userId,
+                Created = currentDateTime,
+                Expired = currentDateTime.AddMinutes(15)
+            };
+
+            await db.Sessions.AddAsync(session);
+            await db.SaveChangesAsync();
+
+            contextAccessor.HttpContext.Response.Cookies.Append("SessionId", session.SessionId);
         }
     }
 }

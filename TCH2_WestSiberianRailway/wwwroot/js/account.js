@@ -14,8 +14,15 @@ function GetEmployees() {
 		method: 'GET',
 		success: function (response) {
 			let result = JSON.parse(response);
-			console.log(result);
-			$('#mainArticle').css('color', 'white').text(result);
+			$('#mainArticle table').remove();
+			//.:: Table building :::
+			let div = document.querySelector('#mainArticle');
+			let table = document.createElement('table');
+			let caption = document.createElement('caption');
+			caption.innerText = 'Список сотрудников ТЧЭ-2 "Омск"';
+			table.appendChild(caption);
+			let rows = Object.keys(result).length;
+
 			DisplayMessage("Список сотрудников ТЧЭ-2 'Омск' загружен", true);
 		},
 		error: function () {
@@ -30,7 +37,13 @@ function GetPositions() {
 		method: 'GET',
 		success: function (response) {
 			let result = JSON.parse(response);
-			$('#mainArticle').css('color', 'white').text(result);
+			let div = document.querySelector('#mainArticle');
+			$('#mainArticle p').remove();
+			for (let i = 0; i < result.length; i++) {
+				let p = document.createElement('p');
+				p.innerText = result[i].FullName;
+				div.appendChild(p);
+			}
 			DisplayMessage("Список текущих должностей в ТЧЭ-2 'Омск' загружен", true);
 		},
 		error: function () {

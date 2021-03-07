@@ -45,7 +45,6 @@ function SignIn() {
             error: function () {
                 DisplayCurrentMessage('Ошибка выполнения запроса', false);
             }
-            //caches: false
         });
 	}
 }

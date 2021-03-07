@@ -9,5 +9,6 @@ namespace TCH2_WestSiberianRailway.Modules.Interfaces
         User Send<T>(HttpMethod method, string path, params object[] args);
         SessionModel Get<T>(string path);
         string Send(string path);
+        string Send<T>(string path, T arg);
     }
 }

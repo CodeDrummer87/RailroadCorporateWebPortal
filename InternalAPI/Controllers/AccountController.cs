@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RailwayPortalClassLibrary;
 using System;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace InternalAPI.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        ApplicationContext db;
+        private ApplicationContext db;
 
         public AccountController(ApplicationContext context)
         {
@@ -31,27 +32,6 @@ namespace InternalAPI.Controllers
 
             return null;
         }
-
-        [Route("session")]
-        [HttpGet]
-        public SessionModel Get(int userId)
-        {
-            DateTime currentDateTime = DateTime.Now;
-
-            SessionModel session = new SessionModel
-            {
-                SessionId = Guid.NewGuid().ToString(),
-                UserId = userId,
-                Created = currentDateTime,
-                Expired = currentDateTime.AddMinutes(15)
-            };
-
-            db.Sessions.Add(session);
-            db.SaveChanges();
-
-            return session;
-        }
-
 
         private byte[] GetSalt()
         {
@@ -79,6 +59,16 @@ namespace InternalAPI.Controllers
         private bool CheckLoginNotExist(string login)
         {
             return db.Users.FirstOrDefault(e => e.Email == login) == null ? true : false;
+        }
+
+        [Route("session")]
+        [HttpPost]
+        public async Task<SessionModel> Post(SessionModel session)
+        {
+            _ = await db.Sessions.AddAsync(session);
+            _ = await db.SaveChangesAsync();
+
+            return session;
         }
     }
 }
