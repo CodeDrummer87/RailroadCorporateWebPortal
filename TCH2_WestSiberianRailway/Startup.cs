@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using TCH2_WestSiberianRailway.Modules.Implementation;
 using TCH2_WestSiberianRailway.Modules.Interfaces;
+using TCH2_WestSiberianRailway.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TCH2_WestSiberianRailway
 {
@@ -20,6 +22,9 @@ namespace TCH2_WestSiberianRailway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin", builder =>

@@ -30,7 +30,22 @@
     grid-area: mM;
 }
 
+#mainHeader, #mainMessages {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
 .pageBlock {
     border: 1px solid #00ff21;
     border-radius: 5px;
+}
+
+#mainNav>p {
+    cursor: pointer;
+}
+
+#mainNav>p:hover {
+    color: #00ff21;
 }
